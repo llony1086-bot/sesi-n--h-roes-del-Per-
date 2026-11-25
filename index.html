@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesión Interactiva Premium - Héroes del Perú</title>
+    <title>Sesión Interactiva Premium - Héroes del Perú (Siglo XIX)</title>
     <style>
         :root {
             --rojo-peru: #D91023;
             --rojo-oscuro: #990B18;
             --azul-marino: #1E3A8A;
+            --azul-oscuro: #0F172A;
             --dorado: #D97706;
+            --gris-fondo: #F1F5F9;
             --gris-claro: #F8FAFC;
-            --borde: #E2E8F0;
+            --borde: #CBD5E1;
             --texto: #1E293B;
         }
 
@@ -23,52 +25,65 @@
         }
 
         body {
-            background-color: #F1F5F9;
+            background-color: var(--gris-fondo);
             color: var(--texto);
-            line-height: 1.6;
-            padding: 20px;
+            line-height: 1.65;
+            padding: 16px;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
             background: #FFFFFF;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
             overflow: hidden;
             border: 1px solid var(--borde);
         }
 
         header {
-            background: linear-gradient(135deg, var(--azul-marino) 0%, #0F172A 100%);
+            background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul-marino) 100%);
             color: white;
-            padding: 35px 25px;
+            padding: 36px 24px;
             text-align: center;
-            border-bottom: 5px solid var(--rojo-peru);
+            border-bottom: 6px solid var(--rojo-peru);
         }
 
-        .institucion {
+        .badge-ie {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 6px 14px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 6px 16px;
+            border-radius: 999px;
             font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            margin-bottom: 14px;
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 2.1rem;
             margin-bottom: 10px;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
         }
 
         header p {
-            color: #CBD5E1;
+            color: #E2E8F0;
             font-size: 1.05rem;
-            max-width: 700px;
+            max-width: 720px;
+            margin: 0 auto 18px auto;
+        }
+
+        .proposito-box {
+            background: rgba(15, 23, 42, 0.55);
+            border-left: 4px solid #FBBF24;
+            padding: 12px 18px;
+            border-radius: 8px;
+            max-width: 760px;
             margin: 0 auto;
+            text-align: left;
+            font-size: 0.92rem;
+            color: #F8FAFC;
         }
 
         .toolbar {
@@ -77,15 +92,18 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 12px;
-            padding: 15px 25px;
+            padding: 14px 24px;
             background: var(--gris-claro);
             border-bottom: 1px solid var(--borde);
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
-        .toolbar span {
+        .toolbar-info {
             font-size: 0.95rem;
-            font-weight: 500;
-            color: #475569;
+            font-weight: 600;
+            color: #334155;
         }
 
         .toolbar-btns {
@@ -97,10 +115,14 @@
             cursor: pointer;
             border: none;
             border-radius: 8px;
-            padding: 9px 16px;
-            font-weight: 600;
+            padding: 10px 18px;
+            font-weight: 700;
             font-size: 0.9rem;
-            transition: all 0.2s ease;
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+
+        button:active {
+            transform: scale(0.98);
         }
 
         .btn-abrir {
@@ -109,12 +131,12 @@
         }
 
         .btn-abrir:hover {
-            background-color: #172554;
+            background-color: var(--azul-oscuro);
         }
 
         .btn-cerrar {
             background-color: #E2E8F0;
-            color: #334155;
+            color: #1E293B;
         }
 
         .btn-cerrar:hover {
@@ -122,73 +144,116 @@
         }
 
         main {
-            padding: 25px;
+            padding: 24px;
         }
 
-        .acordeon {
+        details.bloque {
             border: 1px solid var(--borde);
             border-radius: 12px;
-            margin-bottom: 16px;
-            overflow: hidden;
-            transition: box-shadow 0.2s ease;
-        }
-
-        .acordeon:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-        }
-
-        .acordeon-header {
-            width: 100%;
+            margin-bottom: 18px;
             background: #FFFFFF;
-            padding: 18px 20px;
-            text-align: left;
+            overflow: hidden;
+        }
+
+        details.bloque summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 18px 22px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 1.15rem;
             font-weight: 700;
             color: var(--azul-marino);
-            border-bottom: 1px solid transparent;
+            background: #FFFFFF;
+            user-select: none;
         }
 
-        .acordeon.activo .acordeon-header {
+        details.bloque summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details.bloque[open] summary {
             background: #F8FAFC;
-            border-bottom-color: var(--borde);
+            border-bottom: 1px solid var(--borde);
         }
 
-        .icono-estado {
-            font-size: 1.2rem;
+        .flecha {
+            font-size: 1.1rem;
             color: var(--rojo-peru);
-            transition: transform 0.3s ease;
+            transition: transform 0.25s ease;
         }
 
-        .acordeon.activo .icono-estado {
+        details.bloque[open] .flecha {
             transform: rotate(180deg);
         }
 
-        .acordeon-contenido {
-            display: none;
-            padding: 20px;
-            background: #FFFFFF;
+        .contenido {
+            padding: 22px;
         }
 
-        .acordeon.activo .acordeon-contenido {
+        /* Línea de tiempo */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .hito {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-top: 4px solid var(--azul-marino);
+            padding: 14px;
+            border-radius: 8px;
+        }
+
+        .hito.rojo {
+            border-top-color: var(--rojo-peru);
+        }
+
+        .hito strong {
             display: block;
-            animation: aparecer 0.3s ease;
+            color: var(--azul-oscuro);
+            font-size: 1.05rem;
+            margin-bottom: 4px;
         }
 
-        @keyframes aparecer {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Perfil de Héroes */
+        .perfil-grid {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 20px;
+            align-items: start;
         }
 
-        .heroe-info h3 {
-            margin: 0 0 10px 0;
-            color: var(--azul-marino);
-            font-size: 1.4rem;
+        @media (max-width: 640px) {
+            .perfil-grid {
+                grid-template-columns: 1fr;
+            }
+            .retrato-box {
+                max-width: 140px;
+                margin: 0 auto;
+            }
         }
 
-        .etiqueta-epoca {
+        .retrato-box {
+            background: #F8FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .retrato-box span {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #475569;
+            margin-top: 6px;
+        }
+
+        .etiqueta {
             display: inline-block;
             background: #EFF6FF;
             color: var(--azul-marino);
@@ -196,11 +261,17 @@
             font-weight: 700;
             padding: 4px 10px;
             border-radius: 6px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             border: 1px solid #BFDBFE;
         }
 
-        .heroe-info p {
+        .heroe-datos h3 {
+            color: var(--azul-oscuro);
+            font-size: 1.35rem;
+            margin-bottom: 10px;
+        }
+
+        .heroe-datos p {
             margin-bottom: 10px;
         }
 
@@ -212,117 +283,121 @@
             font-style: italic;
             color: #7F1D1D;
             border-radius: 0 8px 8px 0;
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        /* Estilos del Quiz */
-        .pregunta-box {
-            background: var(--gris-claro);
-            padding: 16px;
+        /* Tabla comparativa */
+        .tabla-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--borde);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--azul-marino);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #F8FAFC;
+        }
+
+        /* Quiz */
+        .pregunta-card {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
             border-radius: 10px;
-            margin-bottom: 15px;
-            border: 1px solid var(--borde);
+            padding: 16px;
+            margin-bottom: 16px;
         }
 
-        .pregunta-box p {
+        .pregunta-card p {
             font-weight: 700;
+            color: var(--azul-oscuro);
             margin-bottom: 10px;
-            color: #0F172A;
         }
 
-        .opcion {
+        .opcion-label {
             display: block;
-            margin: 8px 0;
-            cursor: pointer;
-            padding: 8px 12px;
             background: white;
-            border: 1px solid var(--borde);
-            border-radius: 6px;
+            border: 1px solid #CBD5E1;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
         }
 
-        .opcion:hover {
+        .opcion-label:hover {
             background: #EFF6FF;
+            border-color: var(--azul-marino);
         }
 
-        .btn-evaluar {
+        .btn-rojo {
             background: var(--rojo-peru);
             color: white;
             font-size: 1rem;
             padding: 12px 24px;
-            margin-top: 10px;
         }
 
-        .btn-evaluar:hover {
+        .btn-rojo:hover {
             background: var(--rojo-oscuro);
         }
 
-        #resultado-quiz {
-            margin-top: 15px;
-            padding: 14px;
+        .alerta-resultado {
+            margin-top: 16px;
+            padding: 14px 18px;
             border-radius: 8px;
             font-weight: 700;
             display: none;
         }
 
-        textarea {
+        /* Ficha estudiante */
+        .input-grupo {
+            margin-bottom: 14px;
+        }
+
+        .input-grupo label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--azul-oscuro);
+        }
+
+        input[type="text"], textarea {
             width: 100%;
-            padding: 12px;
+            padding: 11px 14px;
             border: 1px solid #CBD5E1;
             border-radius: 8px;
-            margin-top: 10px;
             font-size: 0.95rem;
-            resize: vertical;
+        }
+
+        .ficha-generada {
+            margin-top: 16px;
+            padding: 16px;
+            background: #F0FDF4;
+            border: 1px solid #86EFAC;
+            border-radius: 10px;
+            display: none;
         }
 
         footer {
             text-align: center;
-            padding: 18px;
+            padding: 20px;
             background: var(--gris-claro);
             border-top: 1px solid var(--borde);
-            font-size: 0.85rem;
-            color: #64748B;
+            font-size: 0.88rem;
+            color: #475569;
         }
     </style>
 </head>
-<body>
-
-<div class="container">
-    <header>
-        <div class="institucion">I.E. N° 0759 "FRANCISCO BOLOGNESI" • CIENCIAS SOCIALES</div>
-        <h1>HÉROES DEL PERÚ (SIGLO XIX)</h1>
-        <p>Sesión Interactiva: Contexto histórico y legado de José Olaya, Pedro Ruiz Gallo y Andrés Avelino Cáceres</p>
-    </header>
-
-    <div class="toolbar">
-        <span>💡 Haz clic en cada sección para desplegar su contenido</span>
-        <div class="toolbar-btns">
-            <button type="button" class="btn-abrir" onclick="abrirTodo()">Abrir todo</button>
-            <button type="button" class="btn-cerrar" onclick="cerrarTodo()">Cerrar todo</button>
-        </div>
-    </div>
-
-    <main>
-        <!-- SECCIÓN 1 -->
-        <div class="acordeon activo">
-            <button type="button" class="acordeon-header" onclick="toggleSeccion(this)">
-                <span>1. Contexto Histórico: El Perú en el Siglo XIX</span>
-                <span class="icono-estado">▼</span>
-            </button>
-            <div class="acordeon-contenido">
-                <span class="etiqueta-epoca">1821 – 1883 • Formación y Defensa de la República</span>
-                <p>El siglo XIX fue una etapa decisiva y compleja para el Perú. Comenzó con la <strong>lucha por la Independencia</strong>, donde miles de peruanos arriesgaron todo para romper el dominio colonial y construir una república libre.</p>
-                <p>Décadas más tarde, el país enfrentó la <strong>Guerra del Pacífico (1879-1883)</strong>, un conflicto que puso a prueba el ingenio científico, la resistencia popular y el amor por la soberanía nacional frente a la invasión extranjera.</p>
-            </div>
-        </div>
-
-        <!-- SECCIÓN 2 -->
-        <div class="acordeon">
-            <button type="button" class="acordeon-header" onclick="toggleSeccion(this)">
-                <span>2. José Silverio Olaya Balandra (1782 – 1823)</span>
-                <span class="icono-estado">▼</span>
-            </button>
-            <div class="acordeon-contenido heroe-info">
-                <span class="etiqueta-epoca">Independencia del Perú • Emisario Patriota</span>
-                <h3>El Mártir de la Independencia</h3>
-                <p><strong>Origen y oficio:</strong> Pescador artesanal nacido en San Pedro de Chorrillos (Lima). Conocía perfectamente el litoral y las rutas marítimas entre Chorrillos y el Callao.</p>
-                <p><strong>Acción heroica:</strong> En junio de 1823, cuando las fuerzas realistas ocuparon Lima, el gobierno patriota se refugió en la Fortaleza del Real Felipe. Olaya se ofreció voluntariamente para nadar llevando cartas secretas entre los patriotas de Lima y los líderes en el Callao.</p>
