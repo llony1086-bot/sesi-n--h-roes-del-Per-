@@ -1,402 +1,151 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesión Interactiva Premium - Héroes del Perú (Siglo XIX)</title>
-    <style>
-        :root {
-            --rojo-peru: #D91023;
-            --rojo-oscuro: #990B18;
-            --azul-marino: #1E3A8A;
-            --azul-oscuro: #0F172A;
-            --dorado: #D97706;
-            --gris-fondo: #F1F5F9;
-            --gris-claro: #F8FAFC;
-            --borde: #CBD5E1;
-            --texto: #1E293B;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-
-        body {
-            background-color: var(--gris-fondo);
-            color: var(--texto);
-            line-height: 1.65;
-            padding: 16px;
-        }
-
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-            background: #FFFFFF;
-            border-radius: 18px;
-            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
-            overflow: hidden;
-            border: 1px solid var(--borde);
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul-marino) 100%);
-            color: white;
-            padding: 36px 24px;
-            text-align: center;
-            border-bottom: 6px solid var(--rojo-peru);
-        }
-
-        .badge-ie {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.14);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            padding: 6px 16px;
-            border-radius: 999px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.6px;
-            margin-bottom: 14px;
-        }
-
-        header h1 {
-            font-size: 2.1rem;
-            margin-bottom: 10px;
-            letter-spacing: 0.8px;
-        }
-
-        header p {
-            color: #E2E8F0;
-            font-size: 1.05rem;
-            max-width: 720px;
-            margin: 0 auto 18px auto;
-        }
-
-        .proposito-box {
-            background: rgba(15, 23, 42, 0.55);
-            border-left: 4px solid #FBBF24;
-            padding: 12px 18px;
-            border-radius: 8px;
-            max-width: 760px;
-            margin: 0 auto;
-            text-align: left;
-            font-size: 0.92rem;
-            color: #F8FAFC;
-        }
-
-        .toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            padding: 14px 24px;
-            background: var(--gris-claro);
-            border-bottom: 1px solid var(--borde);
-        }
-
-        .toolbar-info {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #334155;
-        }
-
-        .toolbar-btns {
-            display: flex;
-            gap: 10px;
-        }
-
-        button {
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 18px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: transform 0.1s ease, background-color 0.2s ease;
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .btn-abrir {
-            background-color: var(--azul-marino);
-            color: white;
-        }
-
-        .btn-abrir:hover {
-            background-color: var(--azul-oscuro);
-        }
-
-        .btn-cerrar {
-            background-color: #E2E8F0;
-            color: #1E293B;
-        }
-
-        .btn-cerrar:hover {
-            background-color: #CBD5E1;
-        }
-
-        main {
-            padding: 24px;
-        }
-
-        details.bloque {
-            border: 1px solid var(--borde);
-            border-radius: 12px;
-            margin-bottom: 18px;
-            background: #FFFFFF;
-            overflow: hidden;
-        }
-
-        details.bloque summary {
-            list-style: none;
-            cursor: pointer;
-            padding: 18px 22px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--azul-marino);
-            background: #FFFFFF;
-            user-select: none;
-        }
-
-        details.bloque summary::-webkit-details-marker {
-            display: none;
-        }
-
-        details.bloque[open] summary {
-            background: #F8FAFC;
-            border-bottom: 1px solid var(--borde);
-        }
-
-        .flecha {
-            font-size: 1.1rem;
-            color: var(--rojo-peru);
-            transition: transform 0.25s ease;
-        }
-
-        details.bloque[open] .flecha {
-            transform: rotate(180deg);
-        }
-
-        .contenido {
-            padding: 22px;
-        }
-
-        .timeline {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 14px;
-            margin-top: 16px;
-        }
-
-        .hito {
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            border-top: 4px solid var(--azul-marino);
-            padding: 14px;
-            border-radius: 8px;
-        }
-
-        .hito.rojo {
-            border-top-color: var(--rojo-peru);
-        }
-
-        .hito strong {
-            display: block;
-            color: var(--azul-oscuro);
-            font-size: 1.05rem;
-            margin-bottom: 4px;
-        }
-
-        .perfil-grid {
-            display: grid;
-            grid-template-columns: 140px 1fr;
-            gap: 20px;
-            align-items: start;
-        }
-
-        @media (max-width: 640px) {
-            .perfil-grid {
-                grid-template-columns: 1fr;
-            }
-            .retrato-box {
-                max-width: 140px;
-                margin: 0 auto;
-            }
-        }
-
-        .retrato-box {
-            background: #F8FAFC;
-            border: 2px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .retrato-box span {
-            display: block;
-            font-size: 0.78rem;
-            font-weight: 700;
-            color: #475569;
-            margin-top: 6px;
-        }
-
-        .etiqueta {
-            display: inline-block;
-            background: #EFF6FF;
-            color: var(--azul-marino);
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            border: 1px solid #BFDBFE;
-        }
-
-        .heroe-datos h3 {
-            color: var(--azul-oscuro);
-            font-size: 1.35rem;
-            margin-bottom: 10px;
-        }
-
-        .heroe-datos p {
-            margin-bottom: 10px;
-        }
-
-        .cita-historica {
-            margin-top: 14px;
-            padding: 12px 16px;
-            background: #FEF2F2;
-            border-left: 4px solid var(--rojo-peru);
-            font-style: italic;
-            color: #7F1D1D;
-            border-radius: 0 8px 8px 0;
-            font-weight: 600;
-        }
-
-        .tabla-wrap {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 0.95rem;
-        }
-
-        th, td {
-            border: 1px solid var(--borde);
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background: var(--azul-marino);
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background: #F8FAFC;
-        }
-
-        .pregunta-card {
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            border-radius: 10px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .pregunta-card p {
-            font-weight: 700;
-            color: var(--azul-oscuro);
-            margin: 14px 0 8px 0;
-        }
-
-        .opcion-label {
-            display: block;
-            background: white;
-            border: 1px solid #CBD5E1;
-            padding: 10px 14px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            cursor: pointer;
-        }
-
-        .opcion-label:hover {
-            background: #EFF6FF;
-            border-color: var(--azul-marino);
-        }
-
-        .btn-rojo {
-            background: var(--rojo-peru);
-            color: white;
-            font-size: 1rem;
-            padding: 12px 24px;
-            margin-top: 10px;
-        }
-
-        .btn-rojo:hover {
-            background: var(--rojo-oscuro);
-        }
-
-        .alerta-resultado {
-            margin-top: 16px;
-            padding: 14px 18px;
-            border-radius: 8px;
-            font-weight: 700;
-            display: none;
-        }
-
-        .input-grupo {
-            margin-bottom: 14px;
-        }
-
-        .input-grupo label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: var(--azul-oscuro);
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 11px 14px;
-            border: 1px solid #CBD5E1;
-            border-radius: 8px;
-            font-size: 0.95rem;
-        }
-
-        .ficha-generada {
-            margin-top: 16px;
-            padding: 16px;
-            background: #F0FDF4;
-            border: 1px solid #86EFAC;
-            border-radius: 10px;
-            display: none;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: var(--gris-claro);
-            border-top: 1px solid var(--borde);
-            font-size: 0.88rem;
-            color: #475569;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesión Interactiva - Héroes del Perú</title>
+<style>
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #F1F5F9; color: #1E293B; margin: 0; padding: 16px; line-height: 1.6; }
+  .box { max-width: 900px; margin: auto; background: #FFF; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #CBD5E1; }
+  header { background: linear-gradient(135deg, #0F172A, #1E3A8A); color: #FFF; padding: 30px 20px; text-align: center; border-bottom: 5px solid #D91023; }
+  .tag { display: inline-block; background: rgba(255,255,255,0.15); padding: 5px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 10px; }
+  header h1 { margin: 0 0 8px; font-size: 1.9rem; }
+  header p { margin: 0 auto; max-width: 680px; color: #E2E8F0; font-size: 0.98rem; }
+  .bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding: 14px 20px; background: #F8FAFC; border-bottom: 1px solid #CBD5E1; }
+  button { cursor: pointer; border: none; border-radius: 8px; padding: 9px 16px; font-weight: 700; font-size: 0.9rem; }
+  .btn1 { background: #1E3A8A; color: #FFF; }
+  .btn2 { background: #E2E8F0; color: #1E293B; }
+  .btn3 { background: #D91023; color: #FFF; margin-top: 10px; }
+  main { padding: 20px; }
+  details { border: 1px solid #CBD5E1; border-radius: 10px; margin-bottom: 14px; background: #FFF; }
+  summary { padding: 16px 20px; font-weight: 700; font-size: 1.1rem; color: #1E3A8A; cursor: pointer; list-style: none; display: flex; justify-content: space-between; }
+  summary::-webkit-details-marker { display: none; }
+  details[open] summary { background: #F8FAFC; border-bottom: 1px solid #CBD5E1; }
+  .cont { padding: 18px 20px; }
+  .cita { margin-top: 12px; padding: 10px 14px; background: #FEF2F2; border-left: 4px solid #D91023; font-style: italic; color: #7F1D1D; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  th, td { border: 1px solid #CBD5E1; padding: 10px; text-align: left; }
+  th { background: #1E3A8A; color: #FFF; }
+  .opt { display: block; margin: 6px 0; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; cursor: pointer; }
+  .opt:hover { background: #EFF6FF; }
+  input[type="text"], textarea { width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #CBD5E1; border-radius: 8px; margin: 6px 0 12px; font-family: inherit; }
+  .res { margin-top: 12px; padding: 12px; border-radius: 8px; font-weight: 700; display: none; }
+  footer { text-align: center; padding: 16px; background: #F8FAFC; border-top: 1px solid #CBD5E1; font-size: 0.85rem; color: #64748B; }
+</style>
 </head>
 <body>
+<div class="box">
+  <header>
+    <div class="tag">I.E. N° 0759 "FRANCISCO BOLOGNESI" • CIENCIAS SOCIALES</div>
+    <h1>HÉROES DEL PERÚ (SIGLO XIX)</h1>
+    <p>Sesión Interactiva: Contexto histórico y legado de José Olaya, Pedro Ruiz Gallo y Andrés Avelino Cáceres</p>
+  </header>
 
-<div class="container">
-    <header>
-        <div class="badge-ie">I.E. N° 0759 "FRANCISCO BOLOGNESI" • CIENCIAS SOCIALES</div>
-        <h1>HÉROES DEL PERÚ (SIGLO XIX)</h1>
+  <div class="bar">
+    <span>💡 Haz clic en cada sección para desplegar su contenido</span>
+    <div>
+      <button type="button" class="btn1" id="bAbrir">Abrir todo</button>
+      <button type="button" class="btn2" id="bCerrar">Cerrar todo</button>
+    </div>
+  </div>
+
+  <main>
+    <details open>
+      <summary><span>1. Contexto Histórico: El Perú en el Siglo XIX</span><span>▼</span></summary>
+      <div class="cont">
+        <p>El siglo XIX marcó el nacimiento y la defensa de la República del Perú. Tras proclamar la Independencia en 1821, el país luchó por consolidar su libertad frente al dominio español y, décadas más tarde, defendió su soberanía durante la <strong>Guerra del Pacífico (1879-1883)</strong>.</p>
+        <p>En ambas etapas surgieron ciudadanos y militares que entregaron su talento, lealtad y vida por la patria.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span>2. José Silverio Olaya Balandra (1782 – 1823)</span><span>▼</span></summary>
+      <div class="cont">
+        <p><strong>El Mártir de la Independencia:</strong> Pescador artesanal nacido en Chorrillos (Lima). En junio de 1823, durante la ocupación realista de Lima, se ofreció voluntariamente como emisario secreto.</p>
+        <p><strong>Aporte y sacrificio:</strong> Nadaba desde Chorrillos hasta el Callao llevando cartas confidenciales entre los patriotas. Fue capturado, torturado y fusilado el 29 de junio de 1823 sin delatar a ningún compañero.</p>
+        <div class="cita">"Si mil vidas tuviera, gustoso las daría antes que traicionar a mi patria."</div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span>3. Pedro Ruiz Gallo (1838 – 1880)</span><span>▼</span></summary>
+      <div class="cont">
+        <p><strong>El Genio Inventor y Precursor de la Aviación:</strong> Militar, relojero, músico e inventor nacido en Eten (Lambayeque). Construyó el Reloj Monumental de Lima (1870) y diseñó una máquina voladora mecánica.</p>
+        <p><strong>Aporte y sacrificio:</strong> En la Guerra del Pacífico fabricó torpedos en el Callao para defender el puerto. Falleció el 24 de abril de 1880 al estallar accidentalmente uno de los artefactos en su taller.</p>
+        <div class="cita">"La ciencia y el ingenio deben estar siempre al servicio del progreso y la defensa de la nación."</div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span>4. Andrés Avelino Cáceres (1836 – 1923)</span><span>▼</span></summary>
+      <div class="cont">
+        <p><strong>El Brujo de los Andes:</strong> Militar nacido en Ayacucho. Tras la ocupación de Lima en 1881, lideró la resistencia en la sierra central conocida como la <strong>Campaña de la Breña</strong>.</p>
+        <p><strong>Aporte y legado:</strong> Su dominio del quechua y de los Andes le permitió organizar a las montoneras campesinas y lograr victorias clave en Pucará, Marcavalle y Concepción.</p>
+        <div class="cita">"Mientras exista un peruano dispuesto a defender su suelo, el Perú jamás será vencido."</div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span>5. Cuadro Síntesis Comparativo</span><span>▼</span></summary>
+      <div class="cont">
+        <table>
+          <tr><th>Héroe</th><th>Origen</th><th>Etapa Histórica</th><th>Valor Principal</th></tr>
+          <tr><td><strong>José Olaya</strong></td><td>Chorrillos (Lima)</td><td>Independencia (1823)</td><td>Lealtad y valentía</td></tr>
+          <tr><td><strong>Pedro Ruiz Gallo</strong></td><td>Eten (Lambayeque)</td><td>Guerra del Pacífico (1880)</td><td>Ingenio científico</td></tr>
+          <tr><td><strong>Andrés A. Cáceres</strong></td><td>Ayacucho</td><td>Campaña de la Breña (1881-1883)</td><td>Liderazgo y perseverancia</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary><span>6. Evaluación Rápida: Comprueba lo Aprendido</span><span>▼</span></summary>
+      <div class="cont">
+        <p><strong>1. ¿Cuál fue la misión de José Olaya en 1823?</strong></p>
+        <label class="opt"><input type="radio" name="q1" value="0"> Comandar la caballería en Ayacucho.</label>
+        <label class="opt"><input type="radio" name="q1" value="1"> Llevar cartas secretas a nado entre Chorrillos y el Callao.</label>
+        <label class="opt"><input type="radio" name="q1" value="0"> Construir el Reloj Monumental de Lima.</label>
+
+        <p><strong>2. ¿Cómo contribuyó Pedro Ruiz Gallo en la Guerra del Pacífico?</strong></p>
+        <label class="opt"><input type="radio" name="q2" value="1"> Fabricando torpedos experimentales para defender el Callao.</label>
+        <label class="opt"><input type="radio" name="q2" value="0"> Liderando las montoneras en la sierra central.</label>
+        <label class="opt"><input type="radio" name="q2" value="0"> Redactando el acta de la Independencia.</label>
+
+        <p><strong>3. ¿Qué campaña lideró Andrés Avelino Cáceres?</strong></p>
+        <label class="opt"><input type="radio" name="q3" value="0"> La Campaña de Tarapacá.</label>
+        <label class="opt"><input type="radio" name="q3" value="0"> La Expedición Libertadora.</label>
+        <label class="opt"><input type="radio" name="q3" value="1"> La Campaña de la Breña junto a los campesinos andinos.</label>
+
+        <button type="button" class="btn3" id="bEval">Calificar respuestas</button>
+        <div id="rQuiz" class="res"></div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span>7. Ficha de Reflexión del Estudiante</span><span>▼</span></summary>
+      <div class="cont">
+        <label><strong>Apellidos y Nombres:</strong></label>
+        <input type="text" id="estNom" placeholder="Escribe tus apellidos y nombres">
+        <label><strong>Grado y Sección:</strong></label>
+        <input type="text" id="estGra" placeholder="Ejemplo: 3° A">
+        <label><strong>Reflexión: ¿Cómo podemos aplicar hoy los valores de estos héroes en nuestra escuela y comunidad?</strong></label>
+        <textarea id="estRef" rows="3" placeholder="Escribe aquí tu respuesta..."></textarea>
+        <button type="button" class="btn1" id="bFicha">Generar constancia</button>
+        <div id="rFicha" class="res"></div>
+      </div>
+    </details>
+  </main>
+
+  <footer>I.E. N° 0759 "Francisco Bolognesi" • Área de Ciencias Sociales</footer>
+</div>
+
+<script>
+  const dets = document.querySelectorAll('details');
+  document.getElementById('bAbrir').onclick = () => dets.forEach(d => d.open = true);
+  document.getElementById('bCerrar').onclick = () => dets.forEach(d => d.open = false);
+
+  document.getElementById('bEval').onclick = () => {
+    const p1 = document.querySelector('input[name="q1"]:checked');
+    const p2 = document.querySelector('input[name="q2"]:checked');
+    const p3 = document.querySelector('input[name="q3"]:checked');
+    const box = document.getElementById('rQuiz');
+    if (!p1 || !p2 || !p3) {
